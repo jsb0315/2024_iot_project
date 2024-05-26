@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.row {
+  display: flex;  
+}
+
+.check {
+  margin: 20px;
+}
+
+.radio {
+  text-align: left;
+}
+
+.topic {
+  font-size: 30px;
+  margin: 0;
+}
+
+.detail {
+  font-size: 20px;
+  margin: 0;
+}

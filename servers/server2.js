@@ -12,8 +12,8 @@ wss.on('connection', (ws) => {
     ws.on('message', (message) => {
         const parsedMessage = JSON.parse(message);
         let exist;
-        let { type, room, content, user } = parsedMessage;
-        console.log(`(${room}) ${user}[${type}]: ${content}`)
+        let { type, room, content, user, value } = parsedMessage;
+        console.log(`(${room}) ${user}[${type}] ${content} | ${value}`)
 
         if (type === 'join') {
             if (!rooms.has(room)) {
@@ -22,9 +22,10 @@ wss.on('connection', (ws) => {
             const clients = rooms.get(room);
             clients.forEach(client => exist = client.user);
             if (clients.size > 1 || clients.size === 1 && exist === user) { // 방 입장시 이미 있을떄
-                content = "이미 존재하는 이름입니다."
+                content = "Err"
+                value = "이미 존재하는 이름입니다."
                 console.log(`(${room}) ${user}[Err]: ${clients.size > 1 ? "Already exists" : "Role duplication"}`)
-                ws.send(JSON.stringify({ type: 'err', room, content, user }));
+                ws.send(JSON.stringify({ type: 'err', room, content, user, value }));
             } else {
                 rooms.get(room).add(ws);
                 ws.room = room;
@@ -33,7 +34,7 @@ wss.on('connection', (ws) => {
                 if (clients) {
                     clients.forEach(client => {
                         if (client !== ws) {
-                            ws.send(JSON.stringify({ type: 'message', room, content, user }));
+                            ws.send(JSON.stringify({ type: 'join', room, content, user, value }));
                         }
                     });
                 }
@@ -43,7 +44,7 @@ wss.on('connection', (ws) => {
             if (clients) {
                 clients.forEach(client => {
                     if (client !== ws) {
-                        client.send(JSON.stringify({ type: 'message', room, content, user }));
+                        client.send(JSON.stringify({ type: 'message', room, content, user, value }));
                     }
                 });
             }
@@ -57,7 +58,7 @@ wss.on('connection', (ws) => {
             if (clients) {
                 clients.forEach(client => {
                     if (client !== ws) {
-                        client.send(JSON.stringify({ type: 'leave', room, user }));
+                        client.send(JSON.stringify({ type: 'leave', room, content: "", user, value: "" }));
                     }
                 });
             }

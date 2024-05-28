@@ -37,6 +37,8 @@
   }
 }
 
+
+
 .row {
   display: flex;  
 }
@@ -57,4 +59,15 @@
 .detail {
   font-size: 20px;
   margin: 0;
+}
+
+.codecreate{
+  background-color:#85a7a4;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+
+.connectinput{
+  display: flex;
 }

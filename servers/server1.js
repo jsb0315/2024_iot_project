@@ -17,14 +17,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post('/', async (req, res) => {
-    const TEST = true;
+    const TEST = false;
 
     const text = req.body.text;
     const type = req.body.type;
 
     console.log("_________________________________________\nIP: ", req.ip, req.headers['x-forwarded-for'] || req.connection.remoteAddress, "\nInfo: ", req.rawHeaders.toString())
 
-    const system = "당신은 아두이노의 신입니다. 각종 센서만 봐도 아두이노를 활용한 주제와 코드가 떠오르는 아두이노 권위자 그냥 천재입니다.";
+    const system = "당신은 아두이노의 신입니다. 각종 센서만 봐도 아두이노를 활용한 주제와 코드가 떠오르는 아두이노 권위자 그냥 천재입니다. 또한 센서에 필요한 라이브러리와 디지털, 아날로그 핀에 대해 정확히 이해하고 알려줍니다.";
 
     const user1 = `다음 [준비물]만을 활용한 간단한 아두이노 코드 예제를 작성하려 해. 3개의 주제를 추천해줘.
     ${text}
@@ -35,10 +35,10 @@ app.post('/', async (req, res) => {
     {"topic": "주제2", "detail": "내용2"},
     {"topic": "주제3", "detail": "내용3"}
 ]`;
-    const user2 = `다음 [주제]와 [내용]에 대해 [준비물]만을 이용한 아두이노 코드를 작성해줘.
+    const user2 = `다음 [주제]와 [내용]에 대해 [준비물]만을 이용한 아두이노 코드 예제를 작성해줘.
 컴포넌트의 핀 번호는 "<<>>"로 감싼 상태로 작성해줘.
-[준비물] 이외의 센서나 도구는 가지고 있지 않아. 앞서 말한 [준비물]만 사용하는 코드를 작성해줘.
-C++ 코드만 출력해줘.
+[준비물] 이외의 센서나 도구는 가지고 있지 않아. 앞서 말한 [준비물]만 사용하는 예제를 작성해줘.
+라이브러리를 포함한 C++ 코드만 출력해줘.
 ${text}`;
 
     if (!TEST) {
@@ -59,15 +59,26 @@ ${text}`;
 
     else {
         const res1 = `[
-{"topic": "주제1", "detail": "내용1"},
+{"topic": "주제ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ1", "detail": "내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ1"},
 {"topic": "주제2", "detail": "내용2"},
 {"topic": "주제3", "detail": "내용3"}
 ]`
-        const res2 = "CodeCodeeeeeee"
-        if (type)
-            res.send(JSON.stringify({ ans: res1, text: text, type: type }));
-        else
-            res.send(JSON.stringify({ ans: res2 + text.substr(-1), text: text, type: type }));
+        const res2 = `void setup() {
+    pinMode(13, OUTPUT);
+}
+void loop() {
+    digitalWrite(13, HIGH);
+    delay(1000);
+    digitalWrite(13, LOW);
+    delay(1000);
+}`
+
+        setTimeout(() => {
+            if (type)
+                res.send(JSON.stringify({ ans: res1, text: text, type: type }));
+            else
+            res.send(JSON.stringify({ ans: res2, text: text, type: type }));
+        }, 2000);
     }
 
 });

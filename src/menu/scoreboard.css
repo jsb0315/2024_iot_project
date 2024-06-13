@@ -1,0 +1,16 @@
+.scoremain {
+    height: 60vh;
+    width: 60vw;
+    top: 20vh;
+    position:fixed;
+    background-color:#85a7a4;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0px 10px black;
+}
+
+.close {
+    display: flex;
+    justify-content: right;
+    position: relative;
+}

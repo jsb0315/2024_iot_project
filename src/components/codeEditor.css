@@ -1,0 +1,17 @@
+.code-editor-container {
+  background-color: #2f343f;
+  height: 97%;
+  width: 100%;
+  border-radius: 4px;
+  overflow-y: auto;
+  overflow-x: auto;
+  user-select: none; /* Standard */
+}
+
+.code-editor-content {
+  margin: 20px;
+  text-align: left; /* 텍스트 왼쪽 정렬 */
+  font-size: 0.7em; /* 폰트 사이즈 설정 */
+  white-space: pre-wrap; /* 줄 바꿈 설정 */
+  text-align: left; /* 텍스트 왼쪽 정렬 */
+}

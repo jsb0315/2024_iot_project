@@ -1,17 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
 
 import React, { useState, useEffect, useRef } from 'react';
-import CreateCode from './CreateCode.js';
+import CreateCode from './menu/CreateCode.jsx';
+import CollapsibleTable from './menu/scoreboard.jsx';
 import ConnectComponent from './components/connected.jsx';
-
+import './wall.jpg';
 
 function App() {
   const [messages, setMessages] = useState(["Wating..."]);
+  console.log(messages);
   const [room, setRoom] = useState("IOT101");
+  const [mode, setMode] = useState("");
   const user = "WEB";
   const [isConnected, setIsConnected] = useState(false);  //접속됨
   const [tryConnecting, setConnecting] = useState(false); // 접속 시도중
+  const [isCompile, setisCompile] = useState(null);  //컴파일 유무 반환
+  const [isVerified, setisVerified] = useState(null);  //검증 성공유무 반환
+
+  const [challenge, setChallenge] = useState(null);
   const ws = useRef(null);
   useEffect(() => {
     return () => {
@@ -41,6 +47,13 @@ function App() {
         setIsConnected(true);
         if (message.content === 'connection') {
           ws.current.send(JSON.stringify({ type: 'message', room, content: "connection", user, value: "connected" }));
+        }
+        else if (message.content === 'compile') {
+          setisCompile(message.value==='True'?true:false)
+          setisVerified(null)
+        }
+        else if (message.content === 'verify') {
+          setisVerified(message.value==='True'?true:false)
         }
         setMessages((prevMessages) => [...prevMessages, `${message.user}: ${message.value}`]);
       }
@@ -76,34 +89,57 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>
-          <h1>WebSocket Chat Client</h1>
-
-          <div>
-            <div className='connectinput'>
-              <input
-                type="text"
-                value={room}
-                onChange={(e) => tryConnecting ? {} : setRoom(e.target.value)}
-                placeholder="Room name"
+        <div className="top">
+          <h3>Good Arduino</h3>
+          <div className='connectinput'>
+            <input
+              type="text"
+              value={room}
+              onChange={(e) => tryConnecting ? {} : setRoom(e.target.value)}
+              placeholder="Room name"
               />
-              <ConnectComponent
-                clickevent={!tryConnecting ? joinRoom : leaveRoom}
-                stat={isConnected} />
-            </div>
-            {(tryConnecting) ? (<div>
-              {messages.map((msg, index) => (
-                <p key={index}>{msg}</p>))}
-            </div>
-            ) : (<div/>)}
+            <ConnectComponent
+              tryConnecting={tryConnecting}
+              clickevent={!tryConnecting ? joinRoom : leaveRoom}
+              stat={isConnected} />
           </div>
         </div>
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <CreateCode
-          isConnected={isConnected}
-          CheckCompile={sendMessage} />
-
+        <div className="menu">
+          <button className='menuBtn upload' onClick={() => {
+            setChallenge(null);
+            setisCompile(null);
+            setisVerified(null);
+            setMode("upload")}}>
+              START
+          </button>
+          <button className='menuBtn scoreboard' onClick={() => {
+            setChallenge(null);
+            setisCompile(null);
+            setisVerified(null);
+            setMode("score")}}>
+              ScoreBoard
+          </button>
+          <button className='menuBtn test'>
+              MyPage
+          </button>
+        </div>
+          {mode === "upload" &&
+            <CreateCode
+              room={room}
+              isConnected={isConnected}
+              isCompile={isCompile}
+              isVerified={isVerified}
+              setisCompile={setisCompile}
+              setisVerified={setisVerified}
+              sendMessage={sendMessage}
+              setMode={setMode}
+              challenge={challenge}
+              setChallenge={setChallenge} />}
+          {mode === "score" && 
+            <CollapsibleTable
+              isConnected={isConnected}
+              setMode={setMode}
+              setChallenge={setChallenge}/>}
       </header>
     </div>
   );

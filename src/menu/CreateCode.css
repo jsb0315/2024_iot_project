@@ -1,0 +1,76 @@
+
+.codecreate{
+    height: 60vh;
+    width: 60vw;
+    top: 20vh;
+    position:fixed;
+    background-color:#85a7a4;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0px 10px black;
+}
+
+.row{
+  display: flex;
+  flex-wrap: wrap; /* 줄 바꿈을 허용 */
+  justify-content: space-evenly;
+}
+
+.close {
+    display: flex;
+    justify-content: right;
+    position: relative;
+}
+
+.swiper {
+  height: 100%;
+}
+.swiper-wrapper{
+  height: 100%;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+}
+
+.nextbtn2 {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.codeCont {
+  height: calc(100% - 24px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}.codeCont > * {
+  position: absolute;
+}
+
+.codeblur {
+  height: 97%;
+  width: 97%;
+} .blur {
+  filter: blur(4px);
+}
+
+.loadingbtn{
+  display: flex;
+  margin-bottom: 40px;
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+.verifybtn {
+  right: 7%;
+  bottom: 10%;
+  display: flex;
+  background-color: aliceblue;
+  border-radius: 5px;
+}

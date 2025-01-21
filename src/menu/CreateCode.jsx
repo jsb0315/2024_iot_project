@@ -40,7 +40,7 @@ const items = [
 ];
 
 async function GPT_API(text, type) {
-  const response = await fetch("http://203.234.62.169:3001/", {
+  const response = await fetch("http://---:3001/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -80,5 +80,5 @@ wss.on('connection', (ws, req) => {
 });
 
 server.listen(8080, () => {
-    console.log('WebSocket 서버가 ws://203.234.62.169:8080 에서 실행 중입니다.');
+    console.log('WebSocket 서버가 ws://---:8080 에서 실행 중입니다.');
 });

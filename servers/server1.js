@@ -2,7 +2,7 @@ const express = require('express');
 
 const OpenAIApi = require('openai');
 
-const openai = new OpenAIApi({ apiKey: "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" });
+const openai = new OpenAIApi({ apiKey: "API" });
 
 const app = express()
 const port = 3001
@@ -59,7 +59,7 @@ ${text}`;
 
     else {
         const res1 = `[
-{"topic": "주제ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ1", "detail": "내용ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ1"},
+{"topic": "주제1", "detail": "내용1"},
 {"topic": "주제2", "detail": "내용2"},
 {"topic": "주제3", "detail": "내용3"}
 ]`

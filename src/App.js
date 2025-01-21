@@ -34,7 +34,7 @@ function App() {
   };
 
   const joinRoom = () => {
-    ws.current = new WebSocket('ws://203.234.62.169:8080');
+    ws.current = new WebSocket('ws://---:8080');
 
     ws.current.onopen = () => {
       setConnecting(true);
